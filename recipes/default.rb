@@ -34,3 +34,11 @@ node['apache']['default_modules'].each do |mod|
     notifies :restart, 'service[apache2]'
   end
 end
+
+template '/etc/apache2/mods-available/ssl.conf' do
+  source 'ssl.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
+  notifies :restart, 'service[apache2]'
+end

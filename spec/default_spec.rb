@@ -8,4 +8,8 @@ describe 'apache2::default' do
   it 'installs the apache2 package' do
     expect(chef_run).to install_package('apache2')
   end
+
+  it 'installs updated SSL configuration' do
+    expect(chef_run).to create_template('/etc/apache2/mods-available/ssl.conf')
+  end
 end
