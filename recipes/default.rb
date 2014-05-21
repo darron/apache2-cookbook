@@ -19,3 +19,18 @@
 #
 
 include_recipe 'chef-sugar::default'
+
+package 'apache2'
+
+service 'apache2' do
+  supports :status => true
+  action [ :enable, :start ]
+end
+
+node['apache']['default_modules'].each do |mod|
+  execute "/usr/sbin/a2enmod #{mod}" do
+    command "/usr/sbin/a2enmod #{mod}"
+    not_if { File.symlink?("/etc/apache2/mods-enabled/#{mod}.load") }
+    notifies :restart, 'service[apache2]'
+  end
+end

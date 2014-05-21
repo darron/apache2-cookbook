@@ -18,4 +18,6 @@
 # limitations under the License.
 #
 
-# Set meaningful node attributes here
+default['apache']['default_modules'] = %w[
+  status alias auth_basic authn_file autoindex dir env mime negotiation setenvif ssl
+]
